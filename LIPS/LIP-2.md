@@ -4,10 +4,10 @@
 Metadata 
 LIP Number: 2 
 Title: Block validation by Service Nodes [Foundation Vote] 
-Author: Kee Jefferys
+Author: Kee Jefferys, Jason Rhinelander
 Status: Draft
 Type: (Core)
-Created: date (yyyy-mm-dd) 
+Created: date (2018-11-30) 
 ```
 
 ## 1 Simple summary 

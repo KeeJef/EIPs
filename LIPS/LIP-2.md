@@ -3,8 +3,8 @@
 ```
 Metadata 
 LIP Number: 2 
-Title: Block validation by Service Nodes [Foundation Vote] 
-Author: Kee Jefferys, Jason Rhinelander
+Title: Service Node Checkpointing [Foundation Vote] 
+Author/s: Kee Jefferys, Jason Rhinelander
 Status: Draft
 Type: (Core)
 Created: date (2018-11-30) 

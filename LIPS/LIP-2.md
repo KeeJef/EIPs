@@ -37,7 +37,10 @@ Finally Monopooling, which is a complex problem where a large number of miners t
 To understand this phenomenon it is best to imagine a portion of the “global GPU hashrate” as liquid, this hashrate moves between coins based on their short term profitability. This means coins which have a spike in price or a large reduction in difficulty are often mined for short periods of time by these miners.
 
 The Roaming hashrate phenomenon has increased in scale with the addition of websites which allow Miners to easily analyse the profitability of every minable coin live depending on their hardware, tools like this can make recommendations about the most profitable coin to mine   . Additionally developers have created open source utilities which allow hashrate to automatically switch between different coins depending on profitability, this can occur entirely without user interaction.
-Figure 1: CryptonightProfitSwitcher CLI utility that automatically targets mining rigs to most profitable CryptoNight coin. 
+
+ <img src="../assets/lip-2/CryptoProfitSwitcher.PNG" width="800">
+
+*Figure 1: CryptonightProfitSwitcher CLI utility that automatically targets mining rigs to most profitable CryptoNight coin.* 
 
 Although these miners are not intending to negatively impact coins, they can further exacerbate deep cycles of hashrate fluctuation when they switch between networks. These deep cycles can be exploited by attackers, either by controlling pools that these miners automatically switch onto, or using rented hashing power attacks when profit seeking miners switch off creating a temporary drop in the network hashrate. If done programmatically, Roaming hashrate can also contribute to the Monopooling phenomenon.
 
@@ -46,7 +49,9 @@ Although these miners are not intending to negatively impact coins, they can fur
 Although the phenomenon of Roaming hashrate would generally be considered as benign and lacking malicious intent, rented hashrate attacks often carry a much greater negative stigma. There have been numerous examples of attackers using rented hashrate to perform a wide variety of attacks, including timestamp forging, difficulty jamming and double spend attacks  .
 
 
-Figure 2 : example of a hashrate attack causing difficulty jamming on the Karbowanec network 
+ <img src="../assets/lip-2/hashattack example.png" width="800">
+ 
+*Figure 2 : example of a hashrate attack causing difficulty jamming on the Karbowanec network*
 
 The proliferation of services like NiceHash and MiningRigRentals make the renting of hashrate easy to even the most basic of attacker. Although the same 51% attacks have always been possible, attackers previously would either have to permanently purchase hardware totaling 51% of the networks hashrate, or convince miners to use their malicious pool. These options typically involved large setup costs in hardware, time, or social efforts (and often all three).
 
@@ -54,19 +59,22 @@ Miners can now spontaneously set up a private pool with modified malicious softw
 
 This comes as a particular concern for Loki as we have repeatedly lowered rewards for miners which has reduced the network hashrate and led to a significant amount of hashrate moving to more profitable coins. Any plans to increase rewards for Service Nodes further may continue this effect, further reducing the Loki hashrate. This trend is illustrated in figure 3, which shows a trend of growing convergence between Nicehash available hashing power and Loki’s global hashrate.
 
+<img src="../assets/lip-2/nicehashvsglobal.PNG" width="800">
 
-Figure 3: Available NiceHash CryptoNight heavy hashing power versus the Global hashing power of at Loki.
+*Figure 3: Available NiceHash CryptoNight heavy hashing power versus the Global hashing power of at Loki.*
 
 
 #### 3.1.3 Monopooling
 
 We will use the term  Monopooling here which refers to single pools which dominate more than 51% of the hashrate of a coin’s network, this is a phenomenon which mostly affects small, GPU-mineable coins. Monopools are not necessarily malicious, although provided the economic incentives from an attacker they can exert their hashrate over a coin network. Monopooling seems to result as the culmination of many of the above phenomenon, being particularly endemic in coins that have an issues with Roaming hashrate.
 
-If we consider a miner who switches between profitable coins using the CryptoNight hashing algorithm, switching which network the mine numerous times a day. The most profitable strategy for this miner is not always to seek the pool with the lowest fees, but to join a pool which will will produce more blocks and yeild a higher payout in the short time that they are mining. This reduces the variance during the time that they do mine ensuring that hashes are seldom wasted. If these pools reach over 50% of the hashrate they can also offer advantages to miners. For example in the event of a hard fork, the community and developers of a coin may seek to legitimise the longest chain as the the legitimate chain meaning profits are unlikely to be lost in a split.
+If we consider a miner who switches between profitable coins using the CryptoNight hashing algorithm, switching which network the mine numerous times a day. The most profitable strategy for this miner is not always to seek the pool with the lowest fees, but to join a pool which will will produce more blocks and yield a higher payout in the short time that they are mining. This reduces the variance during the time that they do mine ensuring that hashes are seldom wasted. If these pools reach over 50% of the hashrate they can also offer advantages to miners. For example in the event of a hard fork, the community and developers of a coin may seek to legitimise the longest chain as the the legitimate chain meaning profits are unlikely to be lost in a split.
 
 On a number of coins this leads to large Monopools, by measuring the percentage hashrate of the largest pools of 18 small GPU-mineable coins the results indicated that on average these coins had a single pool that represented 53% of their hashrate.
 
+<img src="../assets/lip-2/monopools.PNG" width="800">
 
+*Figure 4: Shows the % network hashrate of the largest pool on a number of GPU mineable coins*
 
 Although these pools are primarily benign, they still pose a threat due to the high control they have over the network. It would be feasible for an attacker to bribe or hack a pool operator to perform a double spend.
 
@@ -89,9 +97,9 @@ Already implemented in Loki are Service Node quorums, which dictate that each bl
 
 A Service Node checkpoint should consist of a blockhash, a block height and the signature of a super majority (66%) of the Service nodes in the relevant quorum. To avoid miners colluding to ignore checkpoints and reorg past the hard limits, the checkpoint should not be included as a transaction in the blockchain. Rather, the checkpoint data should be appended to the ‘top’ of the block after the fact, all data inside of blocks will maintain immutability but clients will append outside of the hashed data the Service Node data.
 
+<img src="../assets/lip-2/servicenodedata.PNG" align="middle" width="400">
 
-
- Figure 5: example of a Checkpointed block 
+ *Figure 5: example of a Checkpointed block*
 
 
 #### Choosing chains
@@ -100,10 +108,10 @@ A Service node quorum is prevented from checkpointing more than one chain at any
 
 Some conditions should be established beyond normal block validation:
 
-The proposed chain must be built from one of the last two checkpoints
-Nodes shall not accept more than  (N*3) - 1 blocks since the last checkpoint (Where N is the reorg limit)
-If two chains of proof of work are produced with the same cumulative difficulty Service Nodes should choose the chain based on the lowest hamming distance of the chain tip’s blockhash to 0
-The latest checkpoint C3 can invalidate two checkpoints back to C1 
+1. The proposed chain must be built from one of the last two checkpoints
+2. Nodes shall not accept more than  (N*3) - 1 blocks since the last checkpoint (Where N is the reorg limit)
+3. If two chains of proof of work are produced with the same cumulative difficulty Service Nodes should choose the chain based on the  lowest hamming distance of the chain tip’s blockhash to 0
+4. The latest checkpoint C3 can invalidate two checkpoints back to C1 
 
 Once Service nodes internally agree on the correct chain they should all produce a signed copy of the block which should then be submitted to the network, if valid (containing a super majority of Service Node signatures) then the extra Service Node data should be appended to the relevant checkpointed block in all client databases.
 
@@ -122,14 +130,15 @@ When checkpointing or setting reorganisation limits the question must always be 
 
 If we imagine a protocol bug that causes the blockchain to stop after a reorganisation point or an invalid block is checkpointed then is no way to continue the chain since the longer chain can never reorganise past the first checkpoint on chain 1 in figure 3.
 
+<img src="../assets/lip-2/blockchainexample.PNG" width="700">
 
-
-Figure 3: Blockchain with unrepairable checkpoints, N = 4 
+*Figure 6: Blockchain with unrepairable checkpoints, N = 4 *
 
 The only way to overcome this issue is to allow Service Nodes to simultaneously sign multiple chains:, clients must measure the dominant chain as the one with the most Service Node signatures. However this reintroduces the risk of a double spend as Service Nodes can now authorise duplicate chains outside of N.
 
+<img src="../assets/lip-2/blockchainexample2.PNG" width="700">
 
-Figure 4: Blockchain as measured by signature weight
+*Figure 7: Blockchain as measured by signature weight*
 
 Practically this leads us to the conclusion that chain repairability and double spend protection are mutually exclusive. Since any transactions that were accepted in chain 1 (figure 4) could be reversed in chain 2. 
 
@@ -137,9 +146,9 @@ Practically this leads us to the conclusion that chain repairability and double 
 
 After assessing the above issues I believe Loki should value double spend protection over absolute chain repariablity for a couple of reasons:
 
-Chain repairability is already a problem present in Loki’s current PoW, if a chain of blocks is mined and then there is a bug encountered that bug is likely going to cause an issue for all miners, in this case the Loki team or a third party would release new software which allows miners and clients to sync past the faulty block. This would be the same scenario if an invalid block was to be checkpointed.
+1. Chain repairability is already a problem present in Loki’s current PoW, if a chain of blocks is mined and then there is a bug encountered that bug is likely going to cause an issue for all miners, in this case the Loki team or a third party would release new software which allows miners and clients to sync past the faulty block. This would be the same scenario if an invalid block was to be checkpointed.
 
-An active double spend on the Loki network is likely to cause more damage to the ecosystem than a temporary chain pause. Double spends can shake confidence and erode the trust of users and merchants which accept and exchange Loki, a chain pause is unlikely to cause the same effect.
+2. An active double spend on the Loki network is likely to cause more damage to the ecosystem than a temporary chain pause. Double spends can shake confidence and erode the trust of users and merchants which accept and exchange Loki, a chain pause is unlikely to cause the same effect.
 
 Chain pauses with Loki’s checkpointing system should be extremely rare and only occur when, there is an intractable bug that produces a that is checkpointed more twice Or if three consecutive quorums are unable to reach consensus and checkpoint a block
 
@@ -148,9 +157,9 @@ Chain pauses with Loki’s checkpointing system should be extremely rare and onl
 
 This request does not seek to increase the Service node block reward, however it would add additional conditions to a Service Node receiving its normal portion of the block rewards. The primary things we want to prevent Service Nodes from doing is
 
-Checkpointing more than one chain
-Checkpointing a chain that defies the consensus of the Service Node quorum
-Failing to sign any chain despite being in a selected Service Node quorum
+1. Checkpointing more than one chain
+2. Checkpointing a chain that defies the consensus of the Service Node quorum
+3. Failing to sign any chain despite being in a selected Service Node quorum
 
 The first and second rules can be easily detected by allowing Service Nodes to submit any Service Nodes signature as evidence for a deregistration transaction if the Signature conflicts with an existing onchain checkpoint.
 

@@ -199,14 +199,14 @@ This LIP will be opened for public discussion prior to a Foundation vote. If the
 
 ## References 
 
-1 "NiceHash." https://www.nicehash.com/.
-2 "Mining Rig Rentals." https://www.miningrigrentals.com/.
-3 "CryptUnit." https://www.cryptunit.com/.
-4 "WhatToMine." https://whattomine.com/.
-5 "Comparing mining profitability of CryptoNight coins." https://minecryptonight.net/.
-6 "GitHub - cryptoprofitswitcher/CryptonightProfitSwitcher: Extensible ...." https://github.com/cryptoprofitswitcher/CryptonightProfitSwitcher.
-7 "Let's Do the Time Warp Again: The Verge Hack, Part Deux." 5 Jun. 2018, https://blog.theabacus.io/lets-do-the-time-warp-again-the-verge-hack-part-deux-c6396ab36ecb.
-8 "GRAFT Network Major Update 1.1.2 at Block 64445 - Graft Blockchain." 17 Apr. 2018, https://www.graft.network/2018/04/17/graft-network-node-update-1-1-2-block-64445/.
-9 "Double Spend Attacks on Exchanges - Announcements and Site ...." 18 May. 2018, https://forum.bitcoingold.org/t/double-spend-attacks-on-exchanges/1362.
+1. "NiceHash." https://www.nicehash.com/.
+2. "Mining Rig Rentals." https://www.miningrigrentals.com/.
+3. "CryptUnit." https://www.cryptunit.com/.
+4. "WhatToMine." https://whattomine.com/.
+5. "Comparing mining profitability of CryptoNight coins." https://minecryptonight.net/.
+6. "GitHub - cryptoprofitswitcher/CryptonightProfitSwitcher: Extensible ...." https://github.com/cryptoprofitswitcher/CryptonightProfitSwitcher.
+7. "Let's Do the Time Warp Again: The Verge Hack, Part Deux." 5 Jun. 2018, https://blog.theabacus.io/lets-do-the-time-warp-again-the-verge-hack-part-deux-c6396ab36ecb.
+8. "GRAFT Network Major Update 1.1.2 at Block 64445 - Graft Blockchain." 17 Apr. 2018, https://www.graft.network/2018/04/17/graft-network-node-update-1-1-2-block-64445/.
+9. "Double Spend Attacks on Exchanges - Announcements and Site ...." 18 May. 2018, https://forum.bitcoingold.org/t/double-spend-attacks-on-exchanges/1362.
 
 

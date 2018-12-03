@@ -155,7 +155,7 @@ After assessing the above issues I believe Loki should value double spend protec
 
 1. Chain repairability is already a problem present in Loki’s current PoW. If a chain of blocks is mined and then there is a bug encountered, then that bug is likely to cause an issue for all miners, in this case the Loki team or a third party would have to release new software which would allow miners and clients to sync past the faulty block. This would be the same scenario if an invalid block was to be checkpointed. Thus the introduction of checkpoints doesn’t significantly impact the potential consequences of a bug that causes a chain pause.
 
-2. An active double spend on the Loki network is likely to cause more damage to the ecosystem than a temporary chain pause. Double spends can shake confidence and erode the trust of users and merchants which accept and exchange Loki, whereas history has shown that a chain pause is unlikely to cause the same effect.
+2. An active double spend on the Loki network is likely to cause more damage to the ecosystem than a temporary chain pause. Double spends can shake confidence and erode the trust of users and merchants which accept and exchange Loki, a chain pause may be a lower impact event, since no funds are lost and merchants/exchanges can resume normally after the pause.
 
 ### 4.5 Rewards and consequences
 

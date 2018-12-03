@@ -112,10 +112,10 @@ A Service Node quorum is prevented from checkpointing more than one chain at any
 Some conditions should be established beyond normal block validation:
 
 
-1. The proposed chain must be built from one of the last two checkpoints C1 or C2;
+1. The proposed chain must be built from one of the last two checkpoints *C1* or *C2*;
 2. Nodes shall not accept more than (*N*\*3) - 1 blocks since the last checkpoint (Where *N* is the reorg limit);
 3. If two chains of proof of work are produced with the same cumulative difficulty, Service Nodes should choose the chain based on the lowest hamming distance of the chain tip’s blockhash to 0, and;
-4. The latest checkpoint C3 can invalidate two checkpoints back to C1.
+4. The latest checkpoint *C3* can invalidate two checkpoints back to *C1*.
 
 Once Service nodes internally agree on the correct chain, they should all produce a signed copy of the block which should then be submitted to the network. If valid (containing a super majority of Service Node signatures) then the extra Service Node data should be appended to the relevant checkpointed block in all client databases.
 

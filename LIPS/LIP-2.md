@@ -27,7 +27,7 @@ The most pressing for Loki is that of a 51% attack, which would seek to perform 
 
 The first being the ‘roaming hashrate phenomenon,’ which refers to the propensity for miners to quickly move hashrate across networks seeking the most profitable coins, this can create large fluctuations in hashrate which are difficult to control for.
 
-Secondly, there are ‘rented hash power attacks,’ a relatively new phenomena which have seen wide proliferation through services like NiceHash and MiningRigRentals. These services allow users to temporarily rent hashing power for a number of popular hashing algorithms . Rented hash attacks become a significant threat when the hashrate available on these services exceeds the hashrate of the minable coin. 
+Secondly, there are ‘rented hash power attacks,’ a relatively new phenomena which have seen wide proliferation through services like NiceHash and MiningRigRentals. These services allow users to temporarily rent hashing power for a number of popular hashing algorithms[1][2]. Rented hash attacks become a significant threat when the hashrate available on these services exceeds the hashrate of the minable coin. 
 
 Finally there is ‘monopooling,’ which is a complex problem where a large number of miners tend to mine only to the largest pool regardless of the fee structure of that pool. This is often a symptom of the roaming hashrate phoneomenon. If a monopool reaches more than 51% of the network hashrate then it becomes a risk factor for general 51% attacks occurring. 
 
@@ -40,7 +40,7 @@ These attacks will now be discussed in further detail.
 
 To understand this phenomenon, it is best to imagine a portion of the “global GPU hashrate” as liquid in nature. This hashrate moves between coins based on their short term profitability. This means coins which have a spike in price or a large reduction in difficulty are often mined for short periods of time by this type of miner.
 
-The roaming hashrate phenomenon has increased in scale with the adoption of websites which allow miners to easily analyse the profitability of every minable coin live depending on their hardware, and make recommendations on the most profitable coin to mine   . Additionally, developers have created open source utilities which allow a miner’s hashrate to automatically switch between different coins depending on profitability, entirely without user interaction.
+The roaming hashrate phenomenon has increased in scale with the adoption of websites which allow miners to easily analyse the profitability of every minable coin live depending on their hardware, and make recommendations on the most profitable coin to mine[3][4][5]. Additionally, developers have created open source utilities which allow a miner’s hashrate to automatically switch between different coins depending on profitability, entirely without user interaction[6].
 
  <img src="../assets/lip-2/CryptoProfitSwitcher.PNG" width="800">
 
@@ -50,9 +50,7 @@ Although these miners are not necessarily intending to negatively impact coins, 
 
 #### 3.1.2 Rented Hashrate Attacks 
 
-Although the phenomenon of the roaming hashrate would generally be considered as benign and lacking malicious intent, rented hashrate attacks often carry a much greater negative stigma. There have been numerous examples of attackers using rented hashrate to perform a wide variety of attacks, including timestamp forging, difficulty jamming and double spend attacks.
-
-
+Although the phenomenon of the roaming hashrate would generally be considered as benign and lacking malicious intent, rented hashrate attacks often carry a much greater negative stigma. There have been numerous examples of attackers using rented hashrate to perform a wide variety of attacks, including timestamp forging, difficulty jamming and double spend attacks[7][8][9].
 
  <img src="../assets/lip-2/hashattack example.png" width="800">
  
@@ -88,17 +86,17 @@ Although these pools are primarily benign, they still pose a threat due to the c
 
 ### 4.1 Block Validation 
 
-As a result of the above problems, I propose that Loki utilise Service Nodes to validate the existing Proof of Work chain after N blocks.
+As a result of the above problems, I propose that Loki utilise Service Nodes to validate the existing Proof of Work chain after *N* blocks.
 
 ### 4.2 Reorganisation limits
 
-‘Checkpoints’ are one way to prevent reorganisations greater than N blocks. Adding a checkpoint to a blockchain dictates that once the checkpoint is reached, the normal rules of Proof of Work are ignored. This means that when a checkpoint is set, block reorganizations past the checkpoint are invalid, even if the proposed candidate for reorganisation contains a longer chain with higher difficulty targets.
+‘Checkpoints’ are one way to prevent reorganisations greater than *N* blocks. Adding a checkpoint to a blockchain dictates that once the checkpoint is reached, the normal rules of Proof of Work are ignored. This means that when a checkpoint is set, block reorganizations past the checkpoint are invalid, even if the proposed candidate for reorganisation contains a longer chain with higher difficulty targets.
 
-The other, more naive approach is to simply cap reorganisations greater than P blocks. However there are serious problems with this approach, if an attacker can produce a chain of length P+1 and submit it to different edge of the network as the non attacking chain is being checkpointed, then the network will diverge and will be unable to merge back into a single chain, effectively permanently forking the chain. This attack could, for example, deliberately target an exchange to put the exchange on a fork controlled by the attacker but distinct from the main network until manual maintenance is undertaken by the exchange to re-sync to the proper network chain. This kind of attack is prevented by Service Node checkpointing, as the attacker would need their two chains to be signed by the quorum to create a conflict.
+The other, more naive approach is to simply cap reorganisations greater than *P* blocks. However there are serious problems with this approach, if an attacker can produce a chain of length *P*+1 and submit it to different edge of the network as the non attacking chain is being checkpointed, then the network will diverge and will be unable to merge back into a single chain, effectively permanently forking the chain. This attack could, for example, deliberately target an exchange to put the exchange on a fork controlled by the attacker but distinct from the main network until manual maintenance is undertaken by the exchange to re-sync to the proper network chain. This kind of attack is prevented by Service Node checkpointing, as the attacker would need their two chains to be signed by the quorum to create a conflict.
 
 ### 4.3 Checkpointing rules
 
-Already implemented in Loki are Service Node quorums, which dictate that each block 10 random Service Nodes are selected based on the hash of the 10th previous block to assess the uptime proofs of other Service Nodes. To validate the blockchain every N blocks a new class of Service Node quorums should be selected and be given an additional task, which is to add a checkpoint to the blockchain each time a period N is reached.
+Already implemented in Loki are Service Node quorums, which dictate that each block 10 random Service Nodes are selected based on the hash of the 10th previous block to assess the uptime proofs of other Service Nodes. To validate the blockchain every *N* blocks a new class of Service Node quorums should be selected and be given an additional task, which is to add a checkpoint to the blockchain each time a period *N* is reached.
 
 A Service Node checkpoint should consist of a blockhash, a block height and the signature of a super majority (66%) of the Service nodes in the relevant quorum. To avoid miners colluding to ignore checkpoints and reorg past the hard limits, the checkpoint should not be included as a transaction in the blockchain. Rather, the checkpoint data should be appended to the ‘top’ of the block after the fact. All data inside of blocks will maintain immutability, but clients will append the Service Node data outside of the hashed data.
 
@@ -115,7 +113,7 @@ Some conditions should be established beyond normal block validation:
 
 
 1. The proposed chain must be built from one of the last two checkpoints C1 or C2;
-2. Nodes shall not accept more than (N\*3) - 1 blocks since the last checkpoint (Where N is the reorg limit);
+2. Nodes shall not accept more than (*N*\*3) - 1 blocks since the last checkpoint (Where *N* is the reorg limit);
 3. If two chains of proof of work are produced with the same cumulative difficulty, Service Nodes should choose the chain based on the lowest hamming distance of the chain tip’s blockhash to 0, and;
 4. The latest checkpoint C3 can invalidate two checkpoints back to C1.
 
@@ -141,9 +139,9 @@ If we imagine a protocol bug that causes the blockchain to stop after a reorgani
 
 <img src="../assets/lip-2/blockchainexample.PNG" width="700">
 
-*Figure 6: Blockchain with unrepairable checkpoints, N = 4 *
+*Figure 6: Blockchain with unrepairable checkpoints, N = 4*
 
-The only way to overcome this issue is to allow Service Nodes to simultaneously sign multiple chains. Clients must measure the dominant chain as the one with the most Service Node signatures. However, this reintroduces the risk of a double spend as Service Nodes can now authorise duplicate chains outside of N.
+The only way to overcome this issue is to allow Service Nodes to simultaneously sign multiple chains. Clients must measure the dominant chain as the one with the most Service Node signatures. However, this reintroduces the risk of a double spend as Service Nodes can now authorise duplicate chains outside of *N*.
 
 <img src="../assets/lip-2/blockchainexample2.PNG" width="700">
 
@@ -172,9 +170,9 @@ The first and second rules can be easily detected by allowing Service Nodes to s
 Rule 3 can be solved by investigating each checkpoint for all Service Node signatures. Because Service Node quorum selection is deterministic, if any checkpoint is missing a Service Node signature more than once, the next quorum should have the ability to vote that non-voting Service Node off the network through a deregistration transaction.
 
 
-### 4.6 Setting N
+### 4.6 Setting *N*
 
-N is the depth of the chain before checkpointing occurs. The appropriate N should consider the propensity of natural reorganisations in the Loki blockchain, which happen to occur at a rate of approximately 20 per 10,000 blocks and at an average reorg height of 1.3 blocks. We should also consider the time it will take for a Service Node to actually checkpoint the chain. Currently, processing votes for deregistration takes approximately 1-2 blocks. Taking this into account I propose we set N = 4. In the future we should consider lowering this time if we have good reason to do so.
+*N* is the depth of the chain before checkpointing occurs. The appropriate *N* should consider the propensity of natural reorganisations in the Loki blockchain, which happen to occur at a rate of approximately 20 per 10,000 blocks and at an average reorg height of 1.3 blocks. We should also consider the time it will take for a Service Node to actually checkpoint the chain. Currently, processing votes for deregistration takes approximately 1-2 blocks. Taking this into account I propose we set *N* = 4. In the future we should consider lowering this time if we have good reason to do so.
 
 ### 4.7 DDoS Protection
 
@@ -198,3 +196,17 @@ This proposal is not backwards compatible and will require a hard fork to enact.
 ## Implementation 
 
 This LIP will be opened for public discussion prior to a Foundation vote. If the vote is successful, the code will be written and submitted as a pull request which will be open to community review. These developments shall be linked here as they occur.
+
+## References 
+
+1 "NiceHash." https://www.nicehash.com/.
+2 "Mining Rig Rentals." https://www.miningrigrentals.com/.
+3 "CryptUnit." https://www.cryptunit.com/.
+4 "WhatToMine." https://whattomine.com/.
+5 "Comparing mining profitability of CryptoNight coins." https://minecryptonight.net/.
+6 "GitHub - cryptoprofitswitcher/CryptonightProfitSwitcher: Extensible ...." https://github.com/cryptoprofitswitcher/CryptonightProfitSwitcher.
+7 "Let's Do the Time Warp Again: The Verge Hack, Part Deux." 5 Jun. 2018, https://blog.theabacus.io/lets-do-the-time-warp-again-the-verge-hack-part-deux-c6396ab36ecb.
+8 "GRAFT Network Major Update 1.1.2 at Block 64445 - Graft Blockchain." 17 Apr. 2018, https://www.graft.network/2018/04/17/graft-network-node-update-1-1-2-block-64445/.
+9 "Double Spend Attacks on Exchanges - Announcements and Site ...." 18 May. 2018, https://forum.bitcoingold.org/t/double-spend-attacks-on-exchanges/1362.
+
+

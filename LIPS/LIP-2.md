@@ -72,7 +72,7 @@ If we consider a miner who switches between profitable coins using the CryptoNig
 
 On a number of coins this leads to large Monopools, by measuring the percentage hashrate of the largest pools of 18 small GPU-mineable coins the results indicated that on average these coins had a single pool that represented 53% of their hashrate.
 
-<img src="../assets/lip-2/monopools.PNG" width="800">
+<img src="../assets/lip-2/monopoolsreplace.PNG" width="800">
 
 *Figure 4: Shows the % network hashrate of the largest pool on a number of GPU mineable coins*
 

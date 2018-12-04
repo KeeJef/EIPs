@@ -12,7 +12,7 @@ Created: date (2018-11-30)
 
 ## 1 Simple summary 
 
-Consensus via Proof of Work in Loki presents a significant risk of 51% attack. To mitigate this risk and increase security, Loki should leverage the existing Service Node network and integrate them more closely into the Consensus mechanism. This proposal, if passed, would allow Service Nodes to validate the existing PoW chain to prevent reorganisations of the blockchain greater than *N* blocks.
+Consensus via Proof of Work in Loki presents a significant risk of 51% attack. To mitigate this risk and increase security, Loki should leverage the existing Service Node network and integrate Service Nodes more closely into our Consensus mechanism. This proposal, if passed, would allow Service Nodes to validate the existing PoW chain to prevent reorganisations of the blockchain greater than *N* blocks.
 
 
 ## 2 Abstract
